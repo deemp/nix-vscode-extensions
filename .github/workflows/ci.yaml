@@ -71,7 +71,7 @@ jobs:
         uses: nixbuild/nix-quick-install-action@v30
         with:
           nix_conf: ${{ env.nix_conf }}
-      - uses: nix-community/cache-nix-action/restore@v6
+      - uses: nix-community/cache-nix-action/restore@fc908ede39799ad79a606fe33e69e88457d34ebc
         with:
           primary-key: nix-update-${{ hashfiles('{.,nix-dev}/*.{nix,lock}', 'haskell') }}
           restore-prefixes-first-match: nix-update-
@@ -113,7 +113,7 @@ jobs:
             || echo "commit failed!"
 
           git push
-      - uses: nix-community/cache-nix-action/save@v6
+      - uses: nix-community/cache-nix-action/save@fc908ede39799ad79a606fe33e69e88457d34ebc
         if: always()
         with:
           primary-key: nix-update-${{ hashfiles('{.,nix-dev}/*.{nix,lock}', 'haskell') }}
@@ -149,7 +149,7 @@ jobs:
       - name: Pull latest changes
         run: git pull --rebase --autostash origin master
       - name: Restore and cache Nix store
-        uses: nix-community/cache-nix-action/restore@v6
+        uses: nix-community/cache-nix-action/restore@fc908ede39799ad79a606fe33e69e88457d34ebc
         with:
           primary-key: nix-template-${{ runner.os }}-${{ runner.arch }}-${{ hashfiles('template/flake.*') }}
           restore-prefixes-first-match: nix-template-${{ runner.os }}-${{ runner.arch }}-
@@ -160,7 +160,7 @@ jobs:
       # - name: Save flake attributes from GC
       #   if: always()
       #   run: nix profile install .#saveFromGC.ci.jobs.test-template
-      - uses: nix-community/cache-nix-action/save@v6
+      - uses: nix-community/cache-nix-action/save@fc908ede39799ad79a606fe33e69e88457d34ebc
         if: always()
         with:
           primary-key: nix-template-${{ runner.os }}-${{ runner.arch }}-${{ hashfiles('template/flake.*') }}

@@ -32,7 +32,7 @@
           buildInputs = [ packages.default ];
           shellHook = ''
             printf "VSCodium with extensions:\n"
-            
+
             codium --list-extensions
           '';
         };
